@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.List;
+
+import base.UiBase;
 import org.json.JSONObject;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -15,20 +17,8 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import io.github.bonigarcia.wdm.WebDriverManager;
 
-public class SwagLabsTest {
+public class SwagLabsTest extends UiBase {
 
-    //declaring a driver
-    WebDriver driver;
-
-    @BeforeClass
-    public void setUp() {
-        
-        //setting up driver
-        WebDriverManager.edgedriver().setup();
-
-        driver = new EdgeDriver();
-        driver.manage().window().maximize();
-    }
 
     @Test
     public void testLoginAndPrintProducts() throws IOException, InterruptedException {
@@ -129,11 +119,4 @@ public class SwagLabsTest {
 
 
     }
-
-        @AfterClass
-        public void tearDown() throws InterruptedException {
-
-            Thread.sleep(2000);
-            driver.quit();
-        }
 }
