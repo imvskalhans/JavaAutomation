@@ -1,29 +1,27 @@
 package com.demo.tests;
 
+import base.ApiBase;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-public class ApiTestBasics {
+import utils.ExtentReportManager;
+
+public class ApiTestBasics extends ApiBase {
 
     @Test
     public void testGetPost() {
-        // Setting base URI
+        ExtentReportManager.startTest("testGetPost");
+
         RestAssured.baseURI = "https://jsonplaceholder.typicode.com";
+        Response response = get("/posts/1");
 
-        // Sending  GET request
-        Response response = RestAssured
-                .given()
-                .when()
-                .get("/posts/1");
+        String body = response.getBody().asPrettyString();
+        ExtentReportManager.getTest().info("Response:\n" + body);
 
+        String title = response.jsonPath().getString("title");
+        ExtentReportManager.getTest().info("Title: " + title);
 
-        // Printing response body
-        System.out.println("Response Body:");
-        System.out.println(response.getBody().asPrettyString());
-
-        // Validating status code
         Assert.assertEquals(response.getStatusCode(), 200);
-
     }
 }
