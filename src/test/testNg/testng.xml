@@ -2,8 +2,9 @@
 <suite name="Suite1">
     <test name="Test1">
         <classes>
-<!--           <class name="com.demo.tests.LoginTest"/>-->
+            <class name="com.demo.tests.LoginTest"/>
             <class name="com.demo.tests.SwagLabsTest"/>
+            <class name="com.demo.tests.ApiTestBasics"/>
         </classes>
     </test>
 </suite>

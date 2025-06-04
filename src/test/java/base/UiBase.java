@@ -3,6 +3,7 @@ package base;
 import com.aventstack.extentreports.Status;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.edge.EdgeDriver;
+import org.openqa.selenium.edge.EdgeOptions;
 import org.testng.ITestResult;
 import org.testng.annotations.*;
 import io.github.bonigarcia.wdm.WebDriverManager;
@@ -15,9 +16,15 @@ public class UiBase {
     @BeforeClass
     public void setupDriver() {
         WebDriverManager.edgedriver().setup();
-        driver = new EdgeDriver();
-        driver.manage().window().maximize();
+
+        EdgeOptions options = new EdgeOptions();
+        options.addArguments("--headless=new"); // Add headless mode
+        options.addArguments("--window-size=1920,1080"); // Set screen size
+
+        driver = new EdgeDriver(options);
+        driver.manage().window().maximize(); // Optional, won't do much in headless
     }
+
 
     @AfterMethod
     public void captureResult(ITestResult result) {

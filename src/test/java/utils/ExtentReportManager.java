@@ -15,14 +15,17 @@ public class ExtentReportManager {
     }
 
     public static void startTest(String testName) {
+
         test = extent.createTest(testName);
     }
 
     public static ExtentTest getTest() {
+
         return test;
     }
 
     public static void endReport() {
+
         extent.flush();
     }
 }
