@@ -18,8 +18,13 @@ public class UiBase {
         WebDriverManager.edgedriver().setup();
 
         EdgeOptions options = new EdgeOptions();
-        options.addArguments("--headless=new"); // Add headless mode
-        options.addArguments("--window-size=1920,1080"); // Set screen size
+        options.addArguments("--headless=new");
+        options.addArguments("--disable-gpu");
+        options.addArguments("--no-sandbox");
+        options.addArguments("--remote-allow-origins=*");
+        options.addArguments("--window-size=1920,1080");
+
+        driver = new EdgeDriver(options);
 
         driver = new EdgeDriver(options);
         driver.manage().window().maximize(); // Optional, won't do much in headless
