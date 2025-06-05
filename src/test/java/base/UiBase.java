@@ -10,13 +10,22 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 import utils.ExtentReportManager;
 import utils.ScreenshotUtils;
 
+import java.io.File;
+
 public class UiBase {
     protected WebDriver driver;
 
     @BeforeClass
     public void setupDriver() {
-//        WebDriverManager.edgedriver().setup();
-        System.setProperty("webdriver.edge.driver","C:\\Users\\imvsk\\IdeaProjects\\automationDemo\\src\\test\\resources\\msedgedriver.exe");
+        // Ensure path is correct and the file exists
+        String driverPath = "C:\\Users\\v.bf.singh\\IdeaProjects\\JavaAutomation\\drivers\\msedgedriver.exe";
+        File driverFile = new File(driverPath);
+
+        if (!driverFile.exists()) {
+            throw new RuntimeException("EdgeDriver not found at: " + driverPath);
+        }
+
+        System.setProperty("webdriver.edge.driver", driverPath);
 
         EdgeOptions options = new EdgeOptions();
         options.addArguments("--headless=new");
@@ -26,8 +35,9 @@ public class UiBase {
         options.addArguments("--window-size=1920,1080");
 
         driver = new EdgeDriver(options);
-        driver.manage().window().maximize(); // Optional, won't do much in headless
+        driver.manage().window().maximize(); // Won’t show in headless but still good practice
     }
+
 
 
     @AfterMethod
