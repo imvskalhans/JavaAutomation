@@ -19,7 +19,7 @@ public class UiBase {
         System.setProperty("webdriver.edge.driver","C:\\Users\\imvsk\\IdeaProjects\\automationDemo\\src\\test\\resources\\msedgedriver.exe");
 
         EdgeOptions options = new EdgeOptions();
-        options.addArguments("--headless=chrome");
+        options.addArguments("--headless=new");
         options.addArguments("--disable-gpu");
         options.addArguments("--no-sandbox");
         options.addArguments("--disable-dev-shm-usage");
