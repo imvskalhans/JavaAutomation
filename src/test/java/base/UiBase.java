@@ -15,7 +15,8 @@ public class UiBase {
 
     @BeforeClass
     public void setupDriver() {
-        WebDriverManager.edgedriver().setup();
+//        WebDriverManager.edgedriver().setup();
+        System.setProperty("webdriver.edge.driver","C:\\Users\\imvsk\\IdeaProjects\\automationDemo\\src\\test\\resources\\msedgedriver.exe");
 
         EdgeOptions options = new EdgeOptions();
         options.addArguments("--headless=chrome");
