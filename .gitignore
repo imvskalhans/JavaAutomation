@@ -37,3 +37,17 @@ build/
 
 ### Mac OS ###
 .DS_Store
+
+# Ignore IntelliJ IDEA config
+.idea/
+*.iml
+
+# Maven build folder
+target/
+
+# Logs, reports, screenshots
+*.log
+screenshots/
+reports/
+ExtentReport.html
+
