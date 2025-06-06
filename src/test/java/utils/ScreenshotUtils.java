@@ -5,18 +5,43 @@ import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 
 import java.io.File;
-import java.nio.file.Files;
-import java.nio.file.Paths;
+import java.io.IOException;
+import java.nio.file.*;
 
 public class ScreenshotUtils {
+
+    private static final String SCREENSHOT_DIR = "screenshots";
+
     public static String takeScreenshot(WebDriver driver, String testName) {
+        Path screenshotDir = Paths.get(SCREENSHOT_DIR);
+        Path destPath = screenshotDir.resolve(testName + ".png");
+
         try {
+            // Create directory if not exists
+            if (Files.notExists(screenshotDir)) {
+                Files.createDirectories(screenshotDir);
+            }
+
+            // Take screenshot
             File src = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
-            String path = "screenshots/" + testName + ".png";
-            Files.createDirectories(Paths.get("screenshots"));
-            File dest = new File(path);
-            Files.copy(src.toPath(), dest.toPath());
-            return dest.getAbsolutePath();
+
+            // Retry logic to avoid file lock issues
+            int attempts = 0;
+            while (attempts < 3) {
+                try {
+                    Files.copy(src.toPath(), destPath, StandardCopyOption.REPLACE_EXISTING);
+                    break;
+                } catch (IOException e) {
+                    attempts++;
+                    Thread.sleep(500); // short delay before retry
+                }
+            }
+
+            // Mark file to be deleted on JVM exit to avoid Jenkins file locks
+            destPath.toFile().deleteOnExit();
+
+            return destPath.toAbsolutePath().toString();
+
         } catch (Exception e) {
             e.printStackTrace();
             return "Screenshot failed";

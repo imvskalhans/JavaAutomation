@@ -11,14 +11,23 @@ import utils.ExtentReportManager;
 import utils.ScreenshotUtils;
 
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.*;
 
 public class UiBase {
     protected WebDriver driver;
 
+    @BeforeSuite(alwaysRun = true)
+    public void cleanUpArtifacts() {
+        clearDirectory("screenshots");
+        clearDirectory("reports");
+        clearFile("ExtentReport.html");
+    }
+
     @BeforeClass
     public void setupDriver() {
         // Ensure path is correct and the file exists
-        String driverPath = "C:\\Users\\v.bf.singh\\IdeaProjects\\JavaAutomation\\drivers\\msedgedriver.exe";
+        String driverPath = System.getProperty("user.dir") + "/drivers/msedgedriver.exe";
         File driverFile = new File(driverPath);
 
         if (!driverFile.exists()) {
@@ -31,15 +40,13 @@ public class UiBase {
         options.addArguments("--headless=new"); // use new headless mode
         options.addArguments("--disable-gpu");
         options.addArguments("--remote-debugging-port=9222");
-        options.addArguments("--window-size=1920,1080"); //  for full screen
+        options.addArguments("--window-size=1920,1080");
         options.setExperimentalOption("excludeSwitches", new String[]{"enable-automation"});
         options.setCapability("ms:edgeOptions", options);
 
         driver = new EdgeDriver(options);
-        driver.manage().window().maximize(); // Won’t show in headless but still good practice
+        driver.manage().window().maximize();
     }
-
-
 
     @AfterMethod
     public void captureResult(ITestResult result) {
@@ -49,11 +56,45 @@ public class UiBase {
         }
     }
 
-    @AfterClass
+    @AfterClass(alwaysRun = true)
     public void tearDown() {
         if (driver != null) {
             driver.quit();
         }
         ExtentReportManager.endReport();
+    }
+
+    // Utility: Clear all files in a given directory
+    public void clearDirectory(String folderName) {
+        Path dir = Paths.get(folderName);
+        if (Files.exists(dir)) {
+            try {
+                Files.walk(dir)
+                        .filter(Files::isRegularFile)
+                        .forEach(path -> {
+                            try {
+                                Files.delete(path);
+                                System.out.println("Deleted file: " + path);
+                            } catch (IOException e) {
+                                System.err.println("Failed to delete file: " + path + " - " + e.getMessage());
+                            }
+                        });
+            } catch (IOException e) {
+                System.err.println("Error cleaning directory '" + folderName + "': " + e.getMessage());
+            }
+        }
+    }
+
+    // Utility: Delete a file if it exists
+    public void clearFile(String fileName) {
+        Path file = Paths.get(fileName);
+        try {
+            if (Files.exists(file)) {
+                Files.delete(file);
+                System.out.println("Deleted file: " + fileName);
+            }
+        } catch (IOException e) {
+            System.err.println("Could not delete file: " + fileName + " - " + e.getMessage());
+        }
     }
 }
