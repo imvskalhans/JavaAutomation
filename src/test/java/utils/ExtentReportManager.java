@@ -13,6 +13,7 @@ import java.time.format.DateTimeFormatter;
 public class ExtentReportManager {
     private static ExtentReports extent;
     private static ExtentTest test;
+    private static String timestampedReportPath;
 
     static {
         try {
@@ -22,12 +23,11 @@ public class ExtentReportManager {
                 Files.createDirectories(reportsDir);
             }
 
-            // Generate timestamped report file
+            // Generate timestamped report file path
             String timestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd_HH-mm-ss"));
-            String reportPath = "reports/ExtentReport_" + timestamp + ".html";
+            timestampedReportPath = "reports/ExtentReport_" + timestamp + ".html";
 
-            File reportFile = new File(reportPath);
-            reportFile.deleteOnExit(); // Mark for cleanup post-JVM
+            File reportFile = new File(timestampedReportPath);
 
             ExtentSparkReporter spark = new ExtentSparkReporter(reportFile);
             extent = new ExtentReports();
@@ -53,5 +53,14 @@ public class ExtentReportManager {
 
     public static void endReport() {
         extent.flush();
+
+        // Copy the timestamped report to a fixed file ExtentReport.html
+        Path source = Paths.get(timestampedReportPath);
+        Path target = Paths.get("reports/ExtentReport.html");
+        try {
+            Files.copy(source, target, StandardCopyOption.REPLACE_EXISTING);
+        } catch (IOException e) {
+            System.err.println("Failed to copy report file to fixed location: " + e.getMessage());
+        }
     }
 }
