@@ -3,7 +3,7 @@
     <test name="Test1">
         <classes>
             <class name="com.demo.tests.SwagLabsTest"/>
-            <class name="com.demo.tests.ApiTestBasics"/>
+            <class name="com.demo.tests.GetApiTest"/>
         </classes>
     </test>
 </suite>
