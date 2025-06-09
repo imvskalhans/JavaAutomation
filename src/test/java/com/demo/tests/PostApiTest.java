@@ -77,7 +77,7 @@ public class PostApiTest {
                         .baseUri("https://jsonplaceholder.typicode.com")
                         .contentType(ContentType.JSON)
                         .body(post03)
-                        .when()
+                .when()
                         .post("/posts")
                         .then()
                         .statusCode(201)

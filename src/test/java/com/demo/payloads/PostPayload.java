@@ -1,15 +1,30 @@
 package com.demo.payloads;
 
 public class PostPayload {
-    public String title;
-    public String body;
-    public int userId;
+    public String name;
+    public String job;
 
-    public PostPayload(String title, String body, int userId) {
-        this.title = title;
-        this.body = body;
-        this.userId = userId;
+    // Default constructor (required for Jackson)
+    public PostPayload() {}
+
+    public PostPayload(String name, String job) {
+        this.name = name;
+        this.job = job;
     }
 
+    public String getName() {
+        return name;
+    }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getJob() {
+        return job;
+    }
+
+    public void setJob(String job) {
+        this.job = job;
+    }
 }

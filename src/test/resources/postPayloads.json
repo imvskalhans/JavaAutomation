@@ -1,27 +1,15 @@
 [
   {
-    "title": "Post from JSON 1",
-    "body": "This is the first JSON post",
-    "userId": 201
+    "name": "Vishal",
+    "job": "SDET"
   },
   {
-    "title": "Post from JSON 2",
-    "body": "Second post test from JSON",
-    "userId": 202
+    "name": "Aditi",
+    "job": "Devops Eng"
   },
   {
-    "title": "Post from JSON 3",
-    "body": "third post test from JSON",
-    "userId": 203
-  },
-  {
-    "title": "Post from JSON 4",
-    "body": "fourth post test from JSON",
-    "userId": 204
-  },
-  {
-    "title": "Post from JSON 5",
-    "body": "fifth post test from JSON",
-    "userId": 205
+    "name": "Deepak",
+    "job": "Manager"
   }
+
 ]

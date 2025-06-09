@@ -1,26 +1,31 @@
 package base;
 
+import com.demo.payloads.PostPayload;
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import io.restassured.http.ContentType;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.List;
 import java.util.Map;
 
 public class ApiBase {
 
-    static {
-        RestAssured.baseURI = "https://jsonplaceholder.typicode.com"; // Default URI
-    }
 
+    public List<PostPayload> loadPostPayloads(String filePath) throws IOException {
+        ObjectMapper mapper = new ObjectMapper();
+        return mapper.readValue(new File(filePath), new TypeReference<>() {});
+    }
     // Generic GET request
     public Response get(String endpoint) {
         return RestAssured
                 .given()
-                .log().all()
                 .when()
                 .get(endpoint)
                 .then()
-                .log().all()
                 .extract()
                 .response();
     }
@@ -29,8 +34,9 @@ public class ApiBase {
     public Response post(String endpoint, Object body) {
         return RestAssured
                 .given()
-                .log().all()
                 .contentType(ContentType.JSON)
+                .header("x-api-key", "reqres-free-v1")
+                .log().all()
                 .body(body)
                 .when()
                 .post(endpoint)
@@ -44,14 +50,12 @@ public class ApiBase {
     public Response post(String endpoint, Object body, Map<String, String> headers) {
         return RestAssured
                 .given()
-                .log().all()
                 .headers(headers)
                 .contentType(ContentType.JSON)
                 .body(body)
                 .when()
                 .post(endpoint)
                 .then()
-                .log().all()
                 .extract()
                 .response();
     }
@@ -60,13 +64,11 @@ public class ApiBase {
     public Response put(String endpoint, Object body) {
         return RestAssured
                 .given()
-                .log().all()
                 .contentType(ContentType.JSON)
                 .body(body)
                 .when()
                 .put(endpoint)
                 .then()
-                .log().all()
                 .extract()
                 .response();
     }
@@ -75,11 +77,9 @@ public class ApiBase {
     public Response delete(String endpoint) {
         return RestAssured
                 .given()
-                .log().all()
                 .when()
                 .delete(endpoint)
                 .then()
-                .log().all()
                 .extract()
                 .response();
     }

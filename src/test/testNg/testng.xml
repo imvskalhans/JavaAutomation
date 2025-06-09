@@ -1,9 +1,16 @@
-<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
-<suite name="Suite1">
-    <test name="Test1">
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="AutomationSuite" verbose="1" parallel="false" thread-count="1">
+
+    <test name="API and UI Tests">
         <classes>
+            <!-- UI Test Class -->
             <class name="com.demo.tests.SwagLabsTest"/>
+
+            <!-- API Test Class -->
             <class name="com.demo.tests.GetApiTest"/>
+            <class name="com.demo.tests.PostApiTest"/>
+            <class name="com.demo.tests.JsonPostApiTest"/>
         </classes>
     </test>
+
 </suite>
