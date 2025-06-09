@@ -65,11 +65,11 @@
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-surefire-plugin</artifactId>
             <version>3.5.3</version> <!-- Latest from Maven Central -->
-            <configuration>
-                <includes>
-                    <include>**/*Test.java</include> <!-- Runs all classes ending with Test -->
-                </includes>
-            </configuration>
+                <configuration>
+                    <suiteXmlFiles>
+                        <suiteXmlFile>src/test/testNg/testng.xml</suiteXmlFile>
+                    </suiteXmlFiles>
+                </configuration>
         </plugin>
         </plugins>
     </build>

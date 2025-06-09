@@ -1,7 +1,7 @@
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
-<suite name="AutomationSuite" verbose="1" parallel="false" thread-count="1">
+<suite name="AutomationSuite" verbose="1" parallel="false" thread-count="1" preserve-order="true">
 
-    <test name="API and UI Tests">
+    <test name="API and UI Tests" preserve-order="true">
         <classes>
             <!-- UI Test Class -->
             <class name="com.demo.tests.SwagLabsTest"/>
