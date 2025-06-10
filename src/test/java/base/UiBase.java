@@ -1,7 +1,7 @@
 package base;
 
 import com.aventstack.extentreports.Status;
-import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.*;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.edge.EdgeOptions;
 import org.testng.ITestResult;
@@ -37,9 +37,9 @@ public class UiBase {
         System.setProperty("webdriver.edge.driver", driverPath);
 
         EdgeOptions options = new EdgeOptions();
-        options.addArguments("--headless=new"); // use new headless mode
-        options.addArguments("--disable-gpu");
-        options.addArguments("--remote-debugging-port=9222");
+        //options.addArguments("--headless=new"); // use new headless mode
+        //options.addArguments("--disable-gpu");
+        //options.addArguments("--remote-debugging-port=9222");
         options.addArguments("--window-size=1920,1080");
         options.setExperimentalOption("excludeSwitches", new String[]{"enable-automation"});
         options.setCapability("ms:edgeOptions", options);
@@ -97,4 +97,35 @@ public class UiBase {
             System.err.println("Could not delete file: " + fileName + " - " + e.getMessage());
         }
     }
+
+
+    // Utility: hide ad iframe if present
+    protected void removeAdOverlay() {
+        try {
+            WebElement adIframe = driver.findElement(By.cssSelector("iframe[id^='google_ads_iframe']"));
+            ((JavascriptExecutor) driver).executeScript("arguments[0].style.display='none';", adIframe);
+        } catch (NoSuchElementException ignored) {
+        }
+
+        try {
+            WebElement closeAd = driver.findElement(By.id("close-fixedban"));
+            ((JavascriptExecutor) driver).executeScript("arguments[0].click();", closeAd);
+        } catch (NoSuchElementException ignored) {
+        }
+    }
+
+    // Utility: safe click with JS fallback
+    protected void safeClick(By locator) {
+        WebElement element = driver.findElement(locator);
+        try {
+            ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", element);
+            Thread.sleep(200); // Let page settle
+            element.click();
+        } catch (ElementNotInteractableException e) {
+            ((JavascriptExecutor) driver).executeScript("arguments[0].click();", element);
+        } catch (InterruptedException e) {
+            Thread.currentThread().interrupt();
+        }
+    }
+
 }
