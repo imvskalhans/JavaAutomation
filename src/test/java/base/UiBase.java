@@ -37,9 +37,9 @@ public class UiBase {
         System.setProperty("webdriver.edge.driver", driverPath);
 
         EdgeOptions options = new EdgeOptions();
-        //options.addArguments("--headless=new"); // use new headless mode
-        //options.addArguments("--disable-gpu");
-        //options.addArguments("--remote-debugging-port=9222");
+        options.addArguments("--headless=new"); // use new headless mode
+        options.addArguments("--disable-gpu");
+        options.addArguments("--remote-debugging-port=9222");
         options.addArguments("--window-size=1920,1080");
         options.setExperimentalOption("excludeSwitches", new String[]{"enable-automation"});
         options.setCapability("ms:edgeOptions", options);
