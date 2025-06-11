@@ -12,7 +12,7 @@ import java.time.format.DateTimeFormatter;
 
 public class ExtentReportManager {
     private static ExtentReports extent;
-    private static ExtentTest test;
+    private static ThreadLocal<ExtentTest> test = new ThreadLocal<>();
     private static String timestampedReportPath;
 
     static {
@@ -33,7 +33,7 @@ public class ExtentReportManager {
             extent = new ExtentReports();
             extent.attachReporter(spark);
 
-            // Optional: System info for Jenkins context
+            // Optional: Add system info
             extent.setSystemInfo("OS", System.getProperty("os.name"));
             extent.setSystemInfo("Java Version", System.getProperty("java.version"));
             extent.setSystemInfo("User", System.getProperty("user.name"));
@@ -43,24 +43,26 @@ public class ExtentReportManager {
         }
     }
 
-    public static void startTest(String testName) {
-        test = extent.createTest(testName);
+    // Overloaded: supports name + description
+    public static void startTest(String testName, String description) {
+        ExtentTest extentTest = extent.createTest(testName, description);
+        test.set(extentTest);
     }
 
     public static ExtentTest getTest() {
-        return test;
+        return test.get();
     }
 
     public static void endReport() {
         extent.flush();
 
-        // Copy the timestamped report to a fixed file ExtentReport.html
+        // Copy timestamped report to a fixed name
         Path source = Paths.get(timestampedReportPath);
         Path target = Paths.get("reports/ExtentReport.html");
         try {
             Files.copy(source, target, StandardCopyOption.REPLACE_EXISTING);
         } catch (IOException e) {
-            System.err.println("Failed to copy report file to fixed location: " + e.getMessage());
+            System.err.println("Failed to copy report to fixed location: " + e.getMessage());
         }
     }
 }

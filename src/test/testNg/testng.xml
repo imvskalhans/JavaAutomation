@@ -5,7 +5,8 @@
         <classes>
             <!-- UI Test Class -->
             <class name="com.demo.tests.SwagLabsTest"/>
-            <class name="com.demo.tests.FormInteractionTest"></class>
+            <class name="com.demo.tests.FormInteractionTest"/>
+            <class name="com.demo.tests.FormInteractionWithJson"/>
 
             <!-- API Test Class -->
             <class name="com.demo.tests.GetApiTest"/>

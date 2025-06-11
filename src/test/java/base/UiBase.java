@@ -1,18 +1,20 @@
 package base;
 
-import com.aventstack.extentreports.Status;
 import org.openqa.selenium.*;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.edge.EdgeOptions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.ITestResult;
 import org.testng.annotations.*;
-import io.github.bonigarcia.wdm.WebDriverManager;
 import utils.ExtentReportManager;
 import utils.ScreenshotUtils;
+import org.testng.annotations.BeforeMethod;
+import java.lang.reflect.Method;
 
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.*;
+import java.time.Duration;
 
 public class UiBase {
     protected WebDriver driver;
@@ -46,6 +48,11 @@ public class UiBase {
 
         driver = new EdgeDriver(options);
         driver.manage().window().maximize();
+    }
+    @BeforeMethod(alwaysRun = true)
+    public void startExtentReport(Method method) {
+        String testName = method.getName();
+        ExtentReportManager.startTest(testName, "Executing test: " + testName);
     }
 
     @AfterMethod
@@ -126,6 +133,11 @@ public class UiBase {
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
         }
+    }
+
+    protected void waitForElementVisible(By locator, int seconds) {
+        new WebDriverWait(driver, Duration.ofSeconds(seconds))
+                .until(d -> d.findElement(locator).isDisplayed());
     }
 
 }

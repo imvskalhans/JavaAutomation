@@ -13,7 +13,6 @@ public class GetApiTest extends ApiBase {
 
     @Test
     public void getTest01() {
-        ExtentReportManager.startTest("testGetPost");
 
         RestAssured.baseURI = "https://jsonplaceholder.typicode.com";
         Response response = get("/posts/1");
@@ -29,7 +28,6 @@ public class GetApiTest extends ApiBase {
 
     @Test
     public void getTest02(){
-        ExtentReportManager.startTest("getTest02");
 
         //BDD style
         Response response =

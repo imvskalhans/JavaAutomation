@@ -16,7 +16,6 @@ public class JsonPostApiTest {
 
     @Test
     public void postWithJsonPayloads() throws IOException {
-        ExtentReportManager.startTest("postWithJsonPayloads");
 
         RestAssured.baseURI = "https://reqres.in/"; // Default URI
 

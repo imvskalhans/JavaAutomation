@@ -1,0 +1,19 @@
+{
+  "firstName": "Vishal",
+  "lastName": "Singh",
+  "email": "vishal@example.com",
+  "gender": "Male",
+  "mobile": "9123456789",
+  "dob": {
+    "day": "15",
+    "month": "August",
+    "year": "2000"
+  },
+  "subjects": ["Maths", "English", "Computer Science"],
+  "removeSubjects": ["English", "Maths"],
+  "hobbies": ["Sports", "Music"],
+  "uploadPath": "src/test/resources/testfile.png",
+  "address": "1234 Test Street, City",
+  "state": "NCR",
+  "city": "Delhi"
+}

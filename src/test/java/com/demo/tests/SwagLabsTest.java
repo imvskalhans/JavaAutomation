@@ -115,8 +115,5 @@ public class SwagLabsTest extends UiBase {
 
         driver.findElement(By.xpath("//*[@id='logout_sidebar_link']")).click();
 
-
-
-
     }
 }

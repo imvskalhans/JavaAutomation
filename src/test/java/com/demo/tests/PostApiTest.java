@@ -11,7 +11,6 @@ import static org.hamcrest.Matchers.equalTo;
 public class PostApiTest {
     @Test
     public void postTest01(){
-        ExtentReportManager.startTest("postTest01");
 
         // POST #1
         String post01 = """

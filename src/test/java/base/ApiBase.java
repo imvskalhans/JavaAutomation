@@ -6,14 +6,21 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import io.restassured.http.ContentType;
+import org.testng.annotations.BeforeMethod;
+import utils.ExtentReportManager;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.Method;
 import java.util.List;
 import java.util.Map;
 
 public class ApiBase {
 
+    @BeforeMethod(alwaysRun = true)
+    public void startExtent(Method method) {
+        ExtentReportManager.startTest(method.getName(), "Executing: " + method.getName());
+    }
 
     public List<PostPayload> loadPostPayloads(String filePath) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
