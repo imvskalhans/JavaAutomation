@@ -15,6 +15,7 @@ import java.lang.reflect.Method;
 import java.util.List;
 import java.util.Map;
 
+
 public class ApiBase {
 
     @BeforeMethod(alwaysRun = true)
@@ -72,13 +73,33 @@ public class ApiBase {
         return RestAssured
                 .given()
                 .contentType(ContentType.JSON)
+                .header("x-api-key", "reqres-free-v1")
                 .body(body)
                 .when()
                 .put(endpoint)
                 .then()
+                .log()
+                .all()
                 .extract()
                 .response();
     }
+
+    // PATCH
+    public Response patch(String endpoint, Object body) {
+        return RestAssured
+                .given()
+                .contentType(ContentType.JSON)
+                .header("x-api-key", "reqres-free-v1")
+                .body(body)
+                .when()
+                .patch(endpoint)
+                .then()
+                .log()
+                .all()
+                .extract()
+                .response();
+    }
+
 
     // DELETE
     public Response delete(String endpoint) {
