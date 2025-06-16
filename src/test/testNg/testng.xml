@@ -12,6 +12,7 @@
             <class name="com.demo.tests.GetApiTest"/>
             <class name="com.demo.tests.PostApiTest"/>
             <class name="com.demo.tests.JsonPostApiTest"/>
+            <class name="com.demo.tests.PutApiTest"/>
         </classes>
     </test>
 
