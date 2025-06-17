@@ -4,7 +4,7 @@
     <test name="API and UI Tests" preserve-order="true">
         <classes>
             <!-- UI Test Class -->
-            <class name="com.demo.tests.SwagLabsTest"/>
+            <class name="com.demo.tests.SwagLabsUiTest"/>
             <class name="com.demo.tests.FormInteractionTest"/>
             <class name="com.demo.tests.FormInteractionWithJson"/>
 

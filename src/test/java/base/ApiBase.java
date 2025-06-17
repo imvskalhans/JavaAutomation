@@ -111,4 +111,18 @@ public class ApiBase {
                 .extract()
                 .response();
     }
+
+    // DELETE with headers
+    public Response delete(String endpoint, Map<String, String> headers) {
+        return RestAssured
+                .given()
+                .headers(headers)
+                .when()
+                .delete(endpoint)
+                .then()
+                .log().all()
+                .extract()
+                .response();
+    }
+
 }
