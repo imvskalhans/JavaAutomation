@@ -1,13 +1,13 @@
 package com.demo.payloads;
 
-public class PostPayload {
+public class Payloads {
     public String name;
     public String job;
 
     // Default constructor (required for Jackson)
-    public PostPayload() {}
+    public Payloads() {}
 
-    public PostPayload(String name, String job) {
+    public Payloads(String name, String job) {
         this.name = name;
         this.job = job;
     }

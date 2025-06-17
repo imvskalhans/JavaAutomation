@@ -1,7 +1,7 @@
 package com.demo.tests;
 
 import base.ApiBase;
-import com.demo.payloads.PostPayload;
+import com.demo.payloads.Payloads;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import org.testng.Assert;
@@ -22,10 +22,10 @@ public class JsonPutApiTest extends ApiBase {
         String fileDirectory = "src/test/resources/";
         String fileName = "putPayloads.json";
 
-        // ✅ Corrected: call inherited loadPostPayloads() method
-        List<PostPayload> putPayloads = loadPostPayloads(fileDirectory + fileName);
+        // call inherited loadPayloads() method
+        List<Payloads> putPayloads = loadPayloads(fileDirectory + fileName);
 
-        for (PostPayload payload : putPayloads) {
+        for (Payloads payload : putPayloads) {
             // PUT on a static ID (for example purposes)
             Response response = put("api/users/2", payload);
 

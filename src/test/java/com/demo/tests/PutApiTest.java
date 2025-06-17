@@ -1,7 +1,7 @@
 package com.demo.tests;
 
 import base.ApiBase;
-import com.demo.payloads.PostPayload;
+import com.demo.payloads.Payloads;
 import io.restassured.RestAssured;
 import io.restassured.response.Response;
 import org.testng.Assert;
@@ -15,7 +15,7 @@ public class PutApiTest extends ApiBase {
     public void putWithInlinePayloads() {
         RestAssured.baseURI = "https://reqres.in/";
 
-        PostPayload payload = new PostPayload();
+        Payloads payload = new Payloads();
         payload.setName("Vishal Updated");
         payload.setJob("Software Development Engineer");
 

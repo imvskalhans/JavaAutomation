@@ -1,6 +1,6 @@
 package base;
 
-import com.demo.payloads.PostPayload;
+import com.demo.payloads.Payloads;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.restassured.RestAssured;
@@ -23,7 +23,7 @@ public class ApiBase {
         ExtentReportManager.startTest(method.getName(), "Executing: " + method.getName());
     }
 
-    public List<PostPayload> loadPostPayloads(String filePath) throws IOException {
+    public List<Payloads> loadPayloads(String filePath) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
         return mapper.readValue(new File(filePath), new TypeReference<>() {});
     }

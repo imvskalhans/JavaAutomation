@@ -1,7 +1,7 @@
 package com.demo.tests;
 
 import base.ApiBase;
-import com.demo.payloads.PostPayload;
+import com.demo.payloads.Payloads;
 import io.restassured.RestAssured;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -23,10 +23,10 @@ public class JsonPostApiTest {
         String fileName = "postPayloads.json";
 
         // Load payloads from JSON file using ApiBase method
-        List<PostPayload> postPayloads = apiBase.loadPostPayloads(fileDirectory + fileName);
+        List<Payloads> postPayloads = apiBase.loadPayloads(fileDirectory + fileName);
 
 
-        for (PostPayload postPayload : postPayloads) {
+        for (Payloads postPayload : postPayloads) {
             var response = apiBase.post("api/users", postPayload);
 
             ExtentReportManager.getTest().info("POST Request Payload: " + postPayload.getName() + ", Job: " + postPayload.getJob());
