@@ -17,6 +17,10 @@
             <class name="com.demo.tests.PatchApiTest"/>
             <class name="com.demo.tests.JsonPatchApiTest"/>
             <class name="com.demo.tests.DeleteApiTest"/>
+
+            <!-- JsonPath Test Class -->
+            <class name="com.demo.tests.JsonpathTest"/>
+
         </classes>
     </test>
 
